@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.app2u.app2udemo.commons.view.activity.BaseActivity;
 import com.app2u.app2udemo.features.artistlist.view.viewmodel.ListViewModel;
 
 public abstract class BaseFragment extends Fragment {
@@ -30,5 +31,8 @@ public abstract class BaseFragment extends Fragment {
         return view;
     }
 
+    protected void showErrorFullScreen() {
+        ((BaseActivity)getActivity()).showErrorFullScreen();
+    }
 
 }

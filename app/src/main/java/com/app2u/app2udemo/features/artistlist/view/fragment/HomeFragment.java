@@ -1,6 +1,7 @@
 package com.app2u.app2udemo.features.artistlist.view.fragment;
 
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -17,6 +18,7 @@ import com.app2u.app2udemo.features.artistlist.view.activity.MainActivity;
 
 public class HomeFragment extends BaseFragment {
     private RecyclerView recyclerViewArtistList;
+    private RelativeLayout loadingPanel;
 
     @Override
     protected int getLayoutResId() {
@@ -26,6 +28,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     protected void bindViews(View view) {
         recyclerViewArtistList = view.findViewById(R.id.recyclerArtistList);
+        loadingPanel = view.findViewById(R.id.loadingPanel);
     }
 
     @Override
@@ -45,19 +48,19 @@ public class HomeFragment extends BaseFragment {
 
 
     private void initObservers() {
-        // Create the observer which updates the UI.
-        final Observer<ApiPhotographerListModel> observer = new Observer<ApiPhotographerListModel>() {
-            @Override
-            public void onChanged(@Nullable final ApiPhotographerListModel listViewModel) {
-                syncroViewsWithData(listViewModel);
-            }
-        };
-        getViewModel().getApiPhotographerMutableLiveData().observe(this, observer);
+        // list observer
+        final Observer<ApiPhotographerListModel> listObserver = listViewModel -> initArtistListAdapter(listViewModel);
+        getViewModel().getApiPhotographerMutableLiveData().observe(this, listObserver);
+
+        // loading observer
+        final Observer<Boolean> loadingObserver = isLoading -> showLoading(isLoading);
+        getViewModel().getScreenState().getIsLoading().observe(this, loadingObserver);
+
+        // error observer
+        final Observer<Boolean> errorObserver = hasErrors -> showError(hasErrors);
+        getViewModel().getScreenState().getHasErrors().observe(this, errorObserver);
     }
 
-    private void syncroViewsWithData(@Nullable final ApiPhotographerListModel listViewModel) {
-        initArtistListAdapter(listViewModel);
-    }
 
     private void initArtistListAdapter(@Nullable final ApiPhotographerListModel listViewModel) {
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
@@ -69,6 +72,20 @@ public class HomeFragment extends BaseFragment {
     @Override
     protected ListViewModel getViewModel() {
         return ((MainActivity) getActivity()).getListViewModel();
+    }
+
+    private void showLoading(boolean show){
+        if (show) {
+            loadingPanel.setVisibility(View.VISIBLE);
+        } else {
+            loadingPanel.setVisibility(View.GONE);
+        }
+    }
+
+    private void showError(boolean show){
+        if (show) {
+            showErrorFullScreen();
+        }
     }
 
 }

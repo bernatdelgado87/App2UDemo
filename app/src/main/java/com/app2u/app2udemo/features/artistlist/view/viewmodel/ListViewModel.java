@@ -16,18 +16,23 @@ public class ListViewModel extends CommonViewModel {
     }
 
     public void requestList() {
+        screenState.setHasErrors(false);
+        screenState.setIsLoading(true);
         addDisposable(listUsecase.execute(new ListObserver()));
     }
 
     class ListObserver extends Observer<ApiPhotographerListModel> {
         @Override
         public void onSuccess(ApiPhotographerListModel apiPhotographer) {
+            screenState.setHasErrors(false);
+            screenState.setIsLoading(false);
             apiPhotographerMutableLiveData.setValue(apiPhotographer);
         }
 
         @Override
         public void onError(Throwable exception) {
-            //todo implement error view
+            screenState.setHasErrors(true);
+            screenState.setIsLoading(false);
         }
     }
 

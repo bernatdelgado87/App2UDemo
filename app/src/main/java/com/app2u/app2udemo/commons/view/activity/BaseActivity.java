@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import com.app2u.app2udemo.R;
 import com.app2u.app2udemo.commons.di.ApplicationComponent;
 import com.app2u.app2udemo.commons.di.DaggerApplication;
+import com.app2u.app2udemo.commons.view.fragment.ErrorFullScreenFragment;
 
 public abstract class BaseActivity extends AppCompatActivity {
     private LinearLayout errorLayout;
@@ -64,7 +65,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public void nextFragment(Fragment nextFragment, int optionFragment) {
+    public void nextFragment(Fragment nextFragment) {
         boolean isRegisterCompletedFragmentDetected = false;
         final FragmentManager fragmentManager = getSupportFragmentManager();
         for (int i = fragmentManager.getBackStackEntryCount() - 1; i >= 0; i--) {
@@ -81,5 +82,9 @@ public abstract class BaseActivity extends AppCompatActivity {
                     .addToBackStack(nextFragment.getClass().getSimpleName())
                     .commitAllowingStateLoss();
         }
+    }
+
+    public void showErrorFullScreen() {
+        nextFragment(ErrorFullScreenFragment.newInstance());
     }
 }
