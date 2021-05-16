@@ -2,6 +2,7 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/montserrat</item>
+        <item>@font/playfair_display</item>
         <item>@font/roboto_bold</item>
     </array>
 </resources>

@@ -1,4 +1,4 @@
-package com.app2u.app2udemo.commons.uicomponents;
+package com.app2u.app2udemo.commons.view.uicomponents;
 
 import android.content.Context;
 import android.content.res.TypedArray;

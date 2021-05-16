@@ -2,6 +2,7 @@
 <resources>
     //margins
     <dimen name="frame_lateral_margin">30dp</dimen>
+    <dimen name="frame_top_margin">10dp</dimen>
 
     //text
     <dimen name="title_header">18sp</dimen>

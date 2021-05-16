@@ -1,133 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".features.artistlist.view.activity.MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
+        android:id="@+id/process_activity_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".features.register.view.activity.RegisterProcessActivity" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutHeader"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@color/header_background"
-            android:paddingBottom="30dp"
-            app:layout_constraintHeight_default="percent"
-            app:layout_constraintHeight_percent="0.6"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.app2u.app2udemo.commons.uicomponents.ButtonWithImageAndText
-                android:id="@+id/buttonScan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/frame_lateral_margin"
-                android:layout_marginTop="@dimen/frame_lateral_margin"
-                app:bottom_text="@string/home_header_action_scan"
-                app:layout_constraintBottom_toTopOf="@+id/textViewTitle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:top_image="@drawable/ic_camera" />
-
-            <com.app2u.app2udemo.commons.uicomponents.ButtonWithImageAndText
-                android:id="@+id/buttonHelp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/frame_lateral_margin"
-                app:color="@color/button_action_help"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:top_image="@drawable/ic_eye" />
-
-            <TextView
-                android:id="@+id/textViewTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_bold"
-                android:text="@string/home_header_title"
-                android:textAllCaps="true"
-                android:textSize="@dimen/title_header"
-                app:layout_constraintBottom_toTopOf="@+id/textViewSubtitle"
-                app:layout_constraintStart_toStartOf="@+id/buttonScan" />
-
-            <TextView
-                android:id="@+id/textViewSubtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat"
-                android:text="@string/home_header_subtitle"
-                android:textSize="@dimen/subtitle_header"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/buttonScan" />
-
-            <com.app2u.app2udemo.commons.uicomponents.ButtonWithImageAndText
-                android:id="@+id/buttonFavourites"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/frame_lateral_margin"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textViewTitle"
-                app:top_image="@drawable/ic_heart_fill" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <LinearLayout
-            android:id="@+id/layourDirectButtons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="30dp"
-            android:paddingLeft="@dimen/frame_lateral_margin"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutHeader">
-
-            <com.app2u.app2udemo.commons.uicomponents.ButtonWithImageAndText
-                android:id="@+id/buttonGoProgram"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/frame_lateral_margin"
-                app:bottom_text="@string/home_button_action_program"
-                app:color="@color/button_action_program"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textViewTitle"
-                app:top_image="@drawable/ic_calendar" />
-
-            <com.app2u.app2udemo.commons.uicomponents.ButtonWithImageAndText
-                android:id="@+id/buttonGoArtWorks"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/frame_lateral_margin"
-                app:bottom_text="@string/home_button_action_artworks"
-                app:color="@color/button_action_artworks"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textViewTitle"
-                app:top_image="@drawable/ic_frame" />
-
-            <com.app2u.app2udemo.commons.uicomponents.ButtonWithImageAndText
-                android:id="@+id/buttonGoArtMap"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/frame_lateral_margin"
-                app:bottom_text="@string/home_button_action_map"
-                app:color="@color/button_action_map"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textViewTitle"
-                app:top_image="@drawable/ic_pin" />
-
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerArtistList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layourDirectButtons" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-</ScrollView>
