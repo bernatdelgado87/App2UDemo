@@ -7,4 +7,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+    //home colors
+
+    <color name="header_background">#D99079</color>
+    <color name="button_action_program">#D99079</color>
+    <color name="button_action_artworks">#989E9C</color>
+    <color name="button_action_map">#C2B782</color>
+    <color name="button_action_help">#AFB9CE</color>
 </resources>

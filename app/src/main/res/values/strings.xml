@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">App2uDemo</string>
+
+    <string name="home_header_title">Incadaqués 2020</string>
+    <string name="home_header_subtitle">15 - 25 october 20201</string>
+    <string name="home_header_action_scan">Scan</string>
+    <string name="home_button_action_program">Program</string>
+    <string name="home_button_action_artworks">Artworks</string>
+    <string name="home_button_action_map">Map</string>
+
+
 </resources>
