@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,14 +20,17 @@ import androidx.core.content.res.ResourcesCompat;
 import com.app2u.app2udemo.R;
 import com.app2u.app2udemo.commons.utils.DisplayUtils;
 
+import static com.app2u.app2udemo.commons.utils.DisplayUtils.adjustViewInPercentScreenSize;
+
 public class ButtonWithImageAndText extends LinearLayout {
     private static final int DEFAULT_COLOR = 0;
     private static final int FONT = R.font.montserrat;
     private static final int TEXT_COLOR = R.color.black;
     private static final int TEXT_SIZE = 12;
-    private static final int MAX_ICON_WIDTH = 30;
-    private static final int MAX_CERCLE_WIDTH = 55;
+    private static final double MAX_ICON_WIDTH = 0.04;
+    private static final double MAX_CERCLE_WIDTH = 0.06;
     private static final int TEXT_VIEW_TOP_MARGIN = 3;
+    private boolean hasOvalBackgroundShape;
 
     public ButtonWithImageAndText(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -40,6 +44,7 @@ public class ButtonWithImageAndText extends LinearLayout {
     }
 
     private void draw(String text, Drawable image, int color) {
+        hasOvalBackgroundShape = color != DEFAULT_COLOR;
         setGravity(Gravity.CENTER);
         setOrientation(VERTICAL);
         setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
@@ -60,13 +65,12 @@ public class ButtonWithImageAndText extends LinearLayout {
             @Override
             public void onGlobalLayout() {
                 getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                cercleButton.getLayoutParams().height = DisplayUtils.dpToPx(color != DEFAULT_COLOR ? MAX_CERCLE_WIDTH : MAX_ICON_WIDTH, getContext());
-                cercleButton.getLayoutParams().width = DisplayUtils.dpToPx(color != DEFAULT_COLOR ? MAX_CERCLE_WIDTH : MAX_ICON_WIDTH, getContext());
+                adjustViewInPercentScreenSize(MAX_CERCLE_WIDTH, getContext(), cercleButton, true);
                 cercleButton.requestLayout();
             }
         });
         cercleButton.setGravity(Gravity.CENTER);
-        if (color != DEFAULT_COLOR) {
+        if (hasOvalBackgroundShape) {
             GradientDrawable backGroundShape = generateBackgroundShape(color);
             cercleButton.setBackground(backGroundShape);
         }
@@ -106,8 +110,7 @@ public class ButtonWithImageAndText extends LinearLayout {
             @Override
             public void onGlobalLayout() {
                 getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                imageView.getLayoutParams().height = DisplayUtils.dpToPx(MAX_ICON_WIDTH, getContext());
-                imageView.getLayoutParams().width = DisplayUtils.dpToPx(MAX_ICON_WIDTH, getContext());
+                adjustViewInPercentScreenSize(hasOvalBackgroundShape ? MAX_ICON_WIDTH : MAX_CERCLE_WIDTH, getContext(), imageView, true);
                 imageView.requestLayout();
             }
         });
