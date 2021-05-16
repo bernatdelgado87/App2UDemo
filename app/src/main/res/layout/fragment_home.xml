@@ -46,6 +46,7 @@
             android:text="@string/home_header_title"
             android:textAllCaps="true"
             android:textSize="@dimen/title_header"
+            android:layout_marginBottom="@dimen/frame_top_margin"
             app:layout_constraintBottom_toTopOf="@+id/textViewSubtitle"
             app:layout_constraintStart_toStartOf="@+id/buttonScan" />
 
@@ -64,8 +65,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/frame_lateral_margin"
+            android:layout_marginBottom="@dimen/frame_top_margin"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textViewTitle"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewTitle"
             app:top_image="@drawable/ic_heart_fill" />
 
 
