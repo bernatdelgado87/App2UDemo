@@ -1,4 +1,4 @@
-package com.app2u.app2udemo.commons.api;
+package com.app2u.app2udemo.commons.data.remote;
 
 import okhttp3.Credentials;
 import okhttp3.OkHttpClient;

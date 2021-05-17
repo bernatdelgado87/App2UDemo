@@ -1,4 +1,4 @@
-package com.app2u.app2udemo.commons.api;
+package com.app2u.app2udemo.commons.data.remote;
 
 public class ApiUtils {
     public static final String APP2U_URL_BASE = "https://inphototest.app2u.es/";

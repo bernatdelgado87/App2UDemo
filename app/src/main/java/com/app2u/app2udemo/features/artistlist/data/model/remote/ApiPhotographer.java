@@ -1,4 +1,4 @@
-package com.app2u.app2udemo.features.artistlist.domain.model;
+package com.app2u.app2udemo.features.artistlist.data.model.remote;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

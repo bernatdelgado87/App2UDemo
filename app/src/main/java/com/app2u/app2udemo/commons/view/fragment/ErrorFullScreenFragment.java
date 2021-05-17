@@ -7,8 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.app2u.app2udemo.R;
-import com.app2u.app2udemo.commons.di.ApplicationComponent;
-import com.app2u.app2udemo.features.artistlist.view.viewmodel.ListViewModel;
+import com.app2u.app2udemo.features.artistlist.view.viewmodel.ArtistViewModel;
 
 public class ErrorFullScreenFragment extends BaseFragment {
     @Override
@@ -17,7 +16,7 @@ public class ErrorFullScreenFragment extends BaseFragment {
     }
 
     @Override
-    protected ListViewModel getViewModel() {
+    protected ArtistViewModel getViewModel() {
         return null;
     }
 

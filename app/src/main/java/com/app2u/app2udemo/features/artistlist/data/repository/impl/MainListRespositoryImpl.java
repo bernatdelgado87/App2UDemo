@@ -1,12 +1,16 @@
 package com.app2u.app2udemo.features.artistlist.data.repository.impl;
 
-import android.util.Log;
-
-import com.app2u.app2udemo.commons.api.ApiUtils;
-import com.app2u.app2udemo.features.artistlist.domain.model.ApiPhotographerListModel;
+import com.app2u.app2udemo.commons.data.local.RealmHelper;
+import com.app2u.app2udemo.commons.data.remote.ApiUtils;
+import com.app2u.app2udemo.features.artistlist.data.model.local.DataModalPhotographer;
+import com.app2u.app2udemo.features.artistlist.data.model.remote.ApiPhotographerListModel;
 import com.app2u.app2udemo.features.artistlist.data.repository.MainListRepository;
 
+import java.util.List;
+
 import retrofit2.Response;
+
+import static com.app2u.app2udemo.commons.data.local.RealmHelper.addDataToDatabase;
 
 public class MainListRespositoryImpl implements MainListRepository {
     @Override
@@ -17,13 +21,23 @@ public class MainListRespositoryImpl implements MainListRepository {
                     .getList()
                     .execute();
         } catch (Exception e) {
-            Log.e("repository", e.getMessage());
             throw new Exception(e);
         }
         if (response != null && !response.isSuccessful()) {
-            Log.e("repository", "not successfull");
             throw new Exception();
         }
         return response;
     }
+
+    @Override
+    public void saveArtistListToDatabase(List<DataModalPhotographer> dataModalPhotographerList) {
+        addDataToDatabase(dataModalPhotographerList);
+
+    }
+
+    @Override
+    public List<DataModalPhotographer> getPhotographerListFromLocal() {
+        return RealmHelper.getAllPhotographers();
+    }
+
 }

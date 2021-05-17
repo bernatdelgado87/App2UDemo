@@ -4,15 +4,23 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.app2u.app2udemo.commons.view.viewmodel.CommonViewModel;
 import com.app2u.app2udemo.commons.domain.executor.Observer;
-import com.app2u.app2udemo.features.artistlist.domain.model.ApiPhotographerListModel;
+import com.app2u.app2udemo.features.artistlist.data.model.remote.ApiPhotographerListModel;
+import com.app2u.app2udemo.features.artistlist.domain.model.Photographer;
 import com.app2u.app2udemo.features.artistlist.domain.usecase.ListUsecase;
 
-public class ListViewModel extends CommonViewModel {
-    private ListUsecase listUsecase;
-    private MutableLiveData<ApiPhotographerListModel> apiPhotographerMutableLiveData = new MutableLiveData<ApiPhotographerListModel>();
+import java.util.List;
 
-    public MutableLiveData<ApiPhotographerListModel> getApiPhotographerMutableLiveData() {
+public class ArtistViewModel extends CommonViewModel {
+    private ListUsecase listUsecase;
+    private MutableLiveData<List<Photographer>> apiPhotographerMutableLiveData = new MutableLiveData<List<Photographer>>();
+    private MutableLiveData<Photographer> photographerDetail = new MutableLiveData<Photographer>();
+
+    public MutableLiveData<List<Photographer>> getApiPhotographerMutableLiveData() {
         return apiPhotographerMutableLiveData;
+    }
+
+    public MutableLiveData<Photographer> getPhotographerDetail() {
+        return photographerDetail;
     }
 
     public void requestList() {
@@ -21,12 +29,12 @@ public class ListViewModel extends CommonViewModel {
         addDisposable(listUsecase.execute(new ListObserver()));
     }
 
-    class ListObserver extends Observer<ApiPhotographerListModel> {
+    class ListObserver extends Observer<List<Photographer>> {
         @Override
-        public void onSuccess(ApiPhotographerListModel apiPhotographer) {
+        public void onSuccess(List<Photographer> apiPhotographers) {
             screenState.setHasErrors(false);
             screenState.setIsLoading(false);
-            apiPhotographerMutableLiveData.setValue(apiPhotographer);
+            apiPhotographerMutableLiveData.setValue(apiPhotographers);
         }
 
         @Override

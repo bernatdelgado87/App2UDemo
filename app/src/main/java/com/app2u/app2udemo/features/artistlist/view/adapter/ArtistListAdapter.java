@@ -13,7 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app2u.app2udemo.R;
-import com.app2u.app2udemo.features.artistlist.domain.model.ApiPhotographer;
+import com.app2u.app2udemo.features.artistlist.data.model.remote.ApiPhotographer;
+import com.app2u.app2udemo.features.artistlist.domain.model.Photographer;
 
 import java.util.List;
 
@@ -23,11 +24,13 @@ import static com.app2u.app2udemo.commons.utils.DisplayUtils.setImageCachedFromU
 public class ArtistListAdapter extends RecyclerView.Adapter<ArtistListAdapter.ArtistListViewHolder> {
     public static final double IMAGE_ARTIST_ELEMENT_HEIGHT = 0.2;
 
-    private List<ApiPhotographer> apiPhotographerList;
+    private List<Photographer> photographerList;
     private Context context;
+    private ArtistClickListener artistClickListener;
 
-    public ArtistListAdapter(List<ApiPhotographer> apiPhotographerList, Context context) {
-        this.apiPhotographerList = apiPhotographerList;
+    public ArtistListAdapter(List<Photographer> photographerList, ArtistClickListener artistClickListener, Context context) {
+        this.photographerList = photographerList;
+        this.artistClickListener = artistClickListener;
         this.context = context;
     }
 
@@ -41,7 +44,7 @@ public class ArtistListAdapter extends RecyclerView.Adapter<ArtistListAdapter.Ar
 
     @Override
     public void onBindViewHolder(@NonNull ArtistListViewHolder holder, int position) {
-        ApiPhotographer apiPhotographer = apiPhotographerList == null || apiPhotographerList.size() == 0 ? null : apiPhotographerList.get(position);
+        Photographer apiPhotographer = photographerList == null || photographerList.size() == 0 ? null : photographerList.get(position);
         String completeName = apiPhotographer.getFirstName() + " " + apiPhotographer.getLastName();
         String urlImage = apiPhotographer.getImage();
 
@@ -72,15 +75,14 @@ public class ArtistListAdapter extends RecyclerView.Adapter<ArtistListAdapter.Ar
         adjustViewInPercentScreenSize(IMAGE_ARTIST_ELEMENT_HEIGHT, context, holder.headerImage, false);
     }
 
-    private void goToArtistDetail(ApiPhotographer apiPhotographer) {
-        //todo should call new fragment
-
+    private void goToArtistDetail(Photographer photographer) {
+        artistClickListener.onArtistClicked(photographer);
     }
 
     @Override
     public int getItemCount() {
-        if (apiPhotographerList != null) {
-            return apiPhotographerList.size();
+        if (photographerList != null) {
+            return photographerList.size();
         }
         return 0;
     }
@@ -97,5 +99,9 @@ public class ArtistListAdapter extends RecyclerView.Adapter<ArtistListAdapter.Ar
             buttonAddToFavourites = itemView.findViewById(R.id.buttonAttToFavListElement);
         }
 
+    }
+
+    public interface ArtistClickListener {
+        void onArtistClicked(Photographer photographer);
     }
 }

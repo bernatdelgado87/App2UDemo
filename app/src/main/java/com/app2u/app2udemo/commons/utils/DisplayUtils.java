@@ -39,9 +39,4 @@ public class DisplayUtils {
             view.requestLayout();
         }
     }
-
-    public static int getPercentScreenSize(double percent, Context context) {
-        android.view.Display display = ((android.view.WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-        return (int) (display.getHeight() * percent);
-    }
 }

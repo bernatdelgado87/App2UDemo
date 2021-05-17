@@ -1,7 +1,6 @@
-package com.app2u.app2udemo.commons.api;
+package com.app2u.app2udemo.commons.data.remote;
 
-import com.app2u.app2udemo.features.artistlist.domain.model.ApiPhotographer;
-import com.app2u.app2udemo.features.artistlist.domain.model.ApiPhotographerListModel;
+import com.app2u.app2udemo.features.artistlist.data.model.remote.ApiPhotographerListModel;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

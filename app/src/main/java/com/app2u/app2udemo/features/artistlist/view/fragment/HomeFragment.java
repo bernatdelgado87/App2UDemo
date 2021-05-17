@@ -10,13 +10,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app2u.app2udemo.R;
+import com.app2u.app2udemo.commons.view.activity.BaseActivity;
 import com.app2u.app2udemo.commons.view.fragment.BaseFragment;
-import com.app2u.app2udemo.features.artistlist.view.viewmodel.ListViewModel;
-import com.app2u.app2udemo.features.artistlist.domain.model.ApiPhotographerListModel;
+import com.app2u.app2udemo.features.artistlist.domain.model.Photographer;
+import com.app2u.app2udemo.features.artistlist.view.viewmodel.ArtistViewModel;
 import com.app2u.app2udemo.features.artistlist.view.adapter.ArtistListAdapter;
 import com.app2u.app2udemo.features.artistlist.view.activity.MainActivity;
 
-public class HomeFragment extends BaseFragment {
+import java.util.List;
+
+public class HomeFragment extends BaseFragment implements ArtistListAdapter.ArtistClickListener {
     private RecyclerView recyclerViewArtistList;
     private RelativeLayout loadingPanel;
 
@@ -34,6 +37,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        ((MainActivity)getActivity()).initBackButton();
     }
 
     @Override
@@ -49,7 +53,7 @@ public class HomeFragment extends BaseFragment {
 
     private void initObservers() {
         // list observer
-        final Observer<ApiPhotographerListModel> listObserver = listViewModel -> initArtistListAdapter(listViewModel);
+        final Observer<List<Photographer>> listObserver = listViewModel -> initArtistListAdapter(listViewModel);
         getViewModel().getApiPhotographerMutableLiveData().observe(this, listObserver);
 
         // loading observer
@@ -62,16 +66,16 @@ public class HomeFragment extends BaseFragment {
     }
 
 
-    private void initArtistListAdapter(@Nullable final ApiPhotographerListModel listViewModel) {
+    private void initArtistListAdapter(@Nullable final List<Photographer> photographers) {
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         recyclerViewArtistList.setLayoutManager(llm);
-        ArtistListAdapter artistListAdapter = new ArtistListAdapter(listViewModel.photographerList, getContext());
+        ArtistListAdapter artistListAdapter = new ArtistListAdapter(photographers, this, getContext());
         recyclerViewArtistList.setAdapter(artistListAdapter);
     }
 
     @Override
-    protected ListViewModel getViewModel() {
-        return ((MainActivity) getActivity()).getListViewModel();
+    protected ArtistViewModel getViewModel() {
+        return ((MainActivity) getActivity()).getArtistViewModel();
     }
 
     private void showLoading(boolean show){
@@ -88,4 +92,9 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onArtistClicked(Photographer photographer) {
+        getViewModel().getPhotographerDetail().setValue(photographer);
+        ((BaseActivity)getActivity()).nextFragment(Detailfragment.newInstance());
+    }
 }

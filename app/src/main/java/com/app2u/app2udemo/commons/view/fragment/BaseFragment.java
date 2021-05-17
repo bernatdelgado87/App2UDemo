@@ -10,13 +10,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.app2u.app2udemo.commons.view.activity.BaseActivity;
-import com.app2u.app2udemo.features.artistlist.view.viewmodel.ListViewModel;
+import com.app2u.app2udemo.features.artistlist.view.viewmodel.ArtistViewModel;
 
 public abstract class BaseFragment extends Fragment {
 
     protected abstract int getLayoutResId();
 
-    protected abstract ListViewModel getViewModel();
+    protected abstract ArtistViewModel getViewModel();
 
     protected abstract void bindViews(View view);
 

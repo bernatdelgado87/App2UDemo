@@ -3,6 +3,7 @@ package com.app2u.app2udemo.commons.view.activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
@@ -15,25 +16,18 @@ import com.app2u.app2udemo.R;
 import com.app2u.app2udemo.commons.di.ApplicationComponent;
 import com.app2u.app2udemo.commons.di.DaggerApplication;
 import com.app2u.app2udemo.commons.view.fragment.ErrorFullScreenFragment;
+import com.app2u.app2udemo.commons.view.uicomponents.ProcessToolbar;
 
 public abstract class BaseActivity extends AppCompatActivity {
-    private LinearLayout errorLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adjustFontScale(getResources().getConfiguration());
         initInjection();
-        bindViews();
     }
 
     protected abstract void injectView(ApplicationComponent appComponent);
-
-    @CallSuper
-    protected void bindViews() {
-
-    }
-
 
     private void initInjection() {
         injectView(((DaggerApplication) getApplication()).getApplicationComponent());
@@ -83,6 +77,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                     .commitAllowingStateLoss();
         }
     }
+
+
 
     public void showErrorFullScreen() {
         nextFragment(ErrorFullScreenFragment.newInstance());
